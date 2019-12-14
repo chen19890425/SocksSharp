@@ -46,7 +46,14 @@ namespace SocksSharp.Proxy.Request
             if (hasContent)
             {
                 var contentHeaders = GetHeaders(request.Content.Headers);
-                headers = String.Join(newLine, headers, contentHeaders);
+                if (!string.IsNullOrEmpty(headers))
+                {
+                    headers = string.Join(newLine, headers, contentHeaders);
+                }
+                else
+                {
+                    headers = contentHeaders;
+                }
             }
 
             return ToByteArray(headers + newLine + newLine);
